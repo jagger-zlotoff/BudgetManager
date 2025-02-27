@@ -1,27 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script is running!");
+    console.log(" Script loaded and running!");
 
-    let addIncomeButton = document.getElementById("add-income-button");
-    let addExpenseButton = document.getElementById("add-expense-button");
+    /** ---------------- Income & Expenses Section ---------------- **/
 
-    if (!addIncomeButton || !addExpenseButton) {
-        console.error("ERROR: Buttons not found! Check if script is loading correctly.");
-        return;
-    }
-
-    addIncomeButton.addEventListener("click", function () {
-        console.log("Add Income button clicked!");
-    });
-
-    addExpenseButton.addEventListener("click", function () {
-        console.log("Add Expense button clicked!");
-    });
-
-    console.log("Event listeners attached successfully.");
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
     let incomeItems = [];
     let expenseItems = [];
 
@@ -107,100 +88,130 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("add-income-button").addEventListener("click", addIncomeItem);
     document.getElementById("add-expense-button").addEventListener("click", addExpenseItem);
-});
 
-document.getElementById("postMessageForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const message = document.getElementById("messageInput").value.trim();
+    console.log(" Income & Expense event listeners attached successfully.");
 
-    if (message === "") {
-        alert("Message cannot be empty!");
-        return;
+    /** ---------------- API / AJAX Section ---------------- **/
+
+    document.getElementById("postMessageForm").addEventListener("submit", postMessage);
+    document.getElementById("putMessageForm").addEventListener("submit", updateMessage);
+    document.getElementById("deleteMessageForm").addEventListener("submit", deleteMessage);
+
+    document.getElementById("clearPostForm").addEventListener("click", () => {
+        document.getElementById("messageInput").value = "";
+    });
+
+    document.getElementById("clearPutForm").addEventListener("click", () => {
+        document.getElementById("updateId").value = "";
+        document.getElementById("updateMessage").value = "";
+    });
+
+    document.getElementById("clearDeleteForm").addEventListener("click", () => {
+        document.getElementById("deleteId").value = "";
+    });
+
+    // Fetch messages once when the page loads
+    fetchMessages();
+
+    // Fetch all messages (AJAX GET)
+    function fetchMessages() {
+        fetch("https://budgetbuilder.mooo.com/api/messages")
+            .then(response => response.json())
+            .then(data => {
+                const messageList = document.getElementById("messageList");
+                messageList.innerHTML = ""; // Clear previous messages
+
+                if (!Array.isArray(data)) {
+                    console.error("Error: API response is not an array", data);
+                    messageList.innerHTML = "<li>Error loading messages.</li>";
+                    return;
+                }
+
+                data.forEach((msg, index) => {
+                    const li = document.createElement("li");
+                    li.textContent = `Message ${index + 1}: ${msg}`;
+                    messageList.appendChild(li);
+                });
+
+                console.log("Messages fetched successfully!", data);
+            })
+            .catch(error => {
+                console.error("Error fetching messages:", error);
+                document.getElementById("messageList").innerHTML = "<li>Error loading messages.</li>";
+            });
     }
 
-    fetch("https://budgetbuilder.mooo.com/api/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert("Message Added: " + data.message);
-        document.getElementById("messageInput").value = "";  // Clear input
-    })
-    .catch(error => alert("Error: " + error));
-});
+    // Post a new message (AJAX POST)
+    function postMessage(event) {
+        event.preventDefault();
+        const message = document.getElementById("messageInput").value.trim();
 
-document.getElementById("putMessageForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const id = document.getElementById("updateId").value.trim();
-    const message = document.getElementById("updateMessage").value.trim();
+        if (message === "") {
+            alert("Message cannot be empty!");
+            return;
+        }
 
-    if (id === "" || message === "") {
-        alert("Both fields are required!");
-        return;
+        fetch("https://budgetbuilder.mooo.com/api/messages", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Message Added: " + data.message);
+            document.getElementById("messageInput").value = "";
+            fetchMessages();
+        })
+        .catch(error => alert("Error: " + error));
     }
 
-    fetch(`https://budgetbuilder.mooo.com/api/messages/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert("Message Updated: " + data.message);
-        document.getElementById("updateId").value = "";  
-        document.getElementById("updateMessage").value = ""; 
-    })
-    .catch(error => alert("Error: " + error));
-});
+    // Update a message (AJAX PUT)
+    function updateMessage(event) {
+        event.preventDefault();
+        const id = document.getElementById("updateId").value.trim();
+        const message = document.getElementById("updateMessage").value.trim();
 
-document.getElementById("deleteMessageForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const id = document.getElementById("deleteId").value.trim();
+        if (id === "" || message === "") {
+            alert("Both fields are required!");
+            return;
+        }
 
-    if (id === "") {
-        alert("Message ID is required!");
-        return;
+        fetch(`https://budgetbuilder.mooo.com/api/messages/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Message Updated: " + data.message);
+            document.getElementById("updateId").value = "";
+            document.getElementById("updateMessage").value = "";
+            fetchMessages();
+        })
+        .catch(error => alert("Error: " + error));
     }
 
-    fetch(`https://budgetbuilder.mooo.com/api/messages/${id}`, {
-        method: "DELETE"
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert("Message Deleted: " + data.success);
-        document.getElementById("deleteId").value = "";  
-    })
-    .catch(error => alert("Error: " + error));
-});
+    // Delete a message (AJAX DELETE)
+    function deleteMessage(event) {
+        event.preventDefault();
+        const id = document.getElementById("deleteId").value.trim();
 
-// Fetch and display messages
-document.getElementById("fetchMessages").addEventListener("click", function() {
-    fetch("https://budgetbuilder.mooo.com/api/messages")
-    .then(response => response.json())
-    .then(data => {
-        const messageList = document.getElementById("messageList");
-        messageList.innerHTML = ""; // Clear previous messages
+        if (id === "") {
+            alert("Message ID is required!");
+            return;
+        }
 
-        data.forEach(msg => {
-            const li = document.createElement("li");
-            li.textContent = `ID: ${msg.id} - ${msg.message}`;
-            messageList.appendChild(li);
-        });
-    })
-    .catch(error => alert("Error fetching messages: " + error));
-});
+        fetch(`https://budgetbuilder.mooo.com/api/messages/${id}`, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Message Deleted: " + data.success);
+            document.getElementById("deleteId").value = "";
+            fetchMessages();
+        })
+        .catch(error => alert("Error: " + error));
+    }
 
-// Clear Forms
-document.getElementById("clearPostForm").addEventListener("click", () => {
-    document.getElementById("messageInput").value = "";
+    console.log("API event listeners attached successfully.");
 });
-document.getElementById("clearPutForm").addEventListener("click", () => {
-    document.getElementById("updateId").value = "";
-    document.getElementById("updateMessage").value = "";
-});
-document.getElementById("clearDeleteForm").addEventListener("click", () => {
-    document.getElementById("deleteId").value = "";
-});
-
