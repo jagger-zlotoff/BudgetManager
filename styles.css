@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
+    max-width: 65rem;
+    margin: auto;
 }
 
 h1 {
@@ -28,4 +30,108 @@ button {
 }
 button:hover {
     background-color: #0056b3;
+}
+
+input {
+    border-radius: 10px;
+    border: 2px solid black;
+    min-height: 3em;
+    max-width: 10em;
+}
+
+
+.tri-column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow:scroll;
+    max-height: 75vh;
+    border: 2px solid lightgray;
+    padding: 2px;
+    border-radius: 50px;
+}
+
+.budget-item {
+    border: 2px solid black;
+    border-radius: 50px;
+    padding: 0.75em;
+    margin: 1em 0 1em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.budget-item > input {
+    margin-left: 5px;
+}
+
+#income-list > .budget-item {
+    background-color:  #aaffaa;
+}
+
+#expense-list > .budget-item {
+    background-color: pink;
+}
+
+#add-expense-button, #add-income-button {
+    width: 100%;
+    height: 5em;
+    margin: 0;
+    border-radius: 50px;
+}
+
+.delete-item > img {
+    max-width: 100%;
+}
+
+.delete-item {
+    height: 3em;
+    width: 3em;
+}
+
+.app-col {
+    margin-left: 10px;
+    border: 2px solid lightgrey;
+    border-radius: 50px;
+    height: 200%;
+    flex-grow: 1;
+    padding: 5px;
+    padding-bottom: 30px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.calc-result {
+    margin-right: 10px;
+}
+
+.income-chip {
+    background-color: #aaffaa;
+}
+
+.expense-chip {
+    background-color: pink;
+}
+
+.income-chip, .expense-chip, .sum-chip {
+    border: 2px solid black;
+    border-radius: 50px;
+    margin-top: 5px;
+}
+
+.calc-result > div > h3, .calc-result > div > p {
+    margin: 0.5em;
+}
+
+
+/* Remove the arrows from the number fields */
+/* Webkit/KHTML */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Gecko */
+input[type=number] {
+  -moz-appearance: textfield;
 }

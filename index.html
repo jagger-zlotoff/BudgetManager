@@ -3,70 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudgetBuilder - API Demo</title>
+    <title>BudgetBuilder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to BudgetBuilder!</h1>
-    <p>This is the main page.</p>
+    <h1>Budget Calculator</h1>
 
-    <img src="images/windhound.jpg" alt="Silken Windhound">
-    <p><a href="about.html">Go to About Page</a></p>
+    <div class="tri-column">
 
-    <hr>
+        <div class="app-col income-list">
+            <h2>Income</h2>
+            <div id="income-list">
+                <!-- Income items will be added here dynamically -->
+            </div>
+            <button id="add-income-button">Add Income</button>
+        </div>
 
-    <h2>Budget Summary</h2>
-    <p id="total-income">Total Income: $0.00</p>
-    <p id="total-expenses">Total Expenses: $0.00</p>
-    <p id="remaining-balance">Remaining Balance: $0.00</p>
+        <div class="app-col expense-list">
+            <h2>Expenses</h2>
+            <div id="expense-list">
+                <!-- Expense items will be added here dynamically -->
+            </div>
+            <button id="add-expense-button">Add Expense</button>
+        </div>
 
-    <hr>
+        <div class="app-col calc-result">
+            <h2>Summary</h2>
+            <div class="income-chip">
+                <h3>Total Income</h3>
+                <p>$<span id="total-income">0.00</span></p>
+            </div>
+            <div class="expense-chip">
+                <h3>Total Expenses</h3>
+                <p>$<span id="total-expenses">0.00</span></p>
+            </div>
 
-    <h2>Budget Calculator</h2>
+            <div class="sum-chip">
+                <h3>Remaining Balance</h3>
+                <p>$<span id="remaining-balance">0.00</span></p>
+            </div>
+        </div>
 
-    <h3>Income</h3>
-    <div id="income-list">
-        <!-- Income items will be added here dynamically -->
     </div>
-    <button id="add-income-button">Add Income</button>
 
-    <h3>Expenses</h3>
-    <div id="expense-list">
-        <!-- Expense items will be added here dynamically -->
-    </div>
-    <button id="add-expense-button">Add Expense</button>
-
-    <hr>
-
-    <h2>Interact with the API</h2>
-
-    <!-- Form to POST a new message -->
-    <h3>Add a Message</h3>
-    <form id="postMessageForm">
-        <input type="text" id="messageInput" placeholder="Enter a message" required>
-        <button type="submit">Send</button>
-        <button type="button" id="clearPostForm">Clear</button>
-    </form>
-
-    <ul id="messageList"></ul> 
-
-    <hr>
-
-    <!-- PUT and DELETE placeholders -->
-    <h3>Update a Message (PUT)</h3>
-    <form id="putMessageForm">
-        <input type="number" id="updateId" placeholder="Message ID" required>
-        <input type="text" id="updateMessage" placeholder="New message" required>
-        <button type="submit">Update</button>
-        <button type="button" id="clearPutForm">Clear</button>
-    </form>
-
-    <h3>Delete a Message (DELETE)</h3>
-    <form id="deleteMessageForm">
-        <input type="number" id="deleteId" placeholder="Message ID" required>
-        <button type="submit">Delete</button>
-        <button type="button" id="clearDeleteForm">Clear</button>
-    </form>
 
     <!-- Ensure script.js is loaded at the very end -->
     <script src="script.js"></script>
