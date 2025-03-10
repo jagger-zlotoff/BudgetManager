@@ -1,4 +1,81 @@
+/* ---------------------- */
+/*       NAVIGATION       */
+/* ---------------------- */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    background: #3b82f6;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    z-index: 1000;
+
+    /* Flex container to center items horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Remove default list style, horizontally stack items */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem; /* space between nav items */
+    margin: 0;
+    padding: 0;
+}
+
+/* Each list item */
+.navbar ul li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Links: icons + text side by side */
+.navbar ul li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;                /* space between icon & text */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    position: relative;      /* for underline effect */
+    padding: 8px 0;
+    transition: color 0.3s ease;
+}
+
+/* The underline "slide in" effect for hover/active */
+.navbar ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;          /* place the line just under text */
+    width: 0;
+    height: 2px;
+    background-color: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+/* When hovered or active, show the underline */
+.navbar ul li a:hover::after,
+.navbar ul li a.active::after {
+
+    width: 100%;
+}
+
+/* Change text color on hover or active */
+.navbar ul li a:hover,
+.navbar ul li a.active {
+    color: #fff;
+}
+
 body {
+
+    padding-top: 80px;
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
