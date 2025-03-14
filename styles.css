@@ -73,6 +73,8 @@
     color: #fff;
 }
 
+
+/* Base Style */
 body {
 
     padding-top: 80px;
@@ -109,13 +111,32 @@ button:hover {
     background-color: #0056b3;
 }
 
-input {
+input, select {
+    background-color: white;
     border-radius: 10px;
     border: 2px solid black;
     min-height: 3em;
-    max-width: 10em;
 }
 
+/* Remove the arrows from the number fields */
+/* Webkit/KHTML */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Gecko */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+
+
+/* Budget Calculator classes */
+.budget-item > input {
+    max-width: 10em;
+}
 
 .tri-column {
     display: flex;
@@ -201,14 +222,61 @@ input {
 }
 
 
-/* Remove the arrows from the number fields */
-/* Webkit/KHTML */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+
+
+
+
+/* Amor Styles */
+.two-col {
+    display: grid;
+    column-gap: 50px;
+    grid-template-columns: 50% 50%;
+    row-gap: 25px;
 }
-/* Gecko */
-input[type=number] {
-  -moz-appearance: textfield;
+
+.grid-left {
+    grid-column-start: 1;
+    grid-row-end: 1;
+    text-align: left;
+    display: grid;
+    gap: 0.25em;
+    grid-template-columns: 50% 50%;
+
+}
+
+.grid-left > label {
+    grid-column-start: 1;
+    text-align: right;
+    margin-top: 5%
+}
+
+.grid-left > input {
+    grid-column-start: 2;
+}
+
+.grid-left > select {
+    grid-column-start: 2;
+    min-height: 3.45em;    /* Dont know why its different from input */
+}
+
+.grid-right {
+    grid-column-start: 2;
+    grid-row-end: 1;
+}
+
+.help-text {
+    color: gray;
+}
+
+
+.grid-bottom-left {
+    grid-column-start: 1;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+
+td, th {
+    padding: 0.2em;
 }

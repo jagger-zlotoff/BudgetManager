@@ -16,7 +16,93 @@
     </ul>
   </nav>
 
+  <div class="two-col">
+    <div class="grid-left">
+
+
+
+        <label for='loan-term-input'>Loan Term (Years):</label>
+        <input id=loan-term-input type=number>
+
+        <label for='loan-amount-input'>Loan Amount:</label>
+        <input id=loan-amount-input type=number placeholder="$">
+
+        <label for='apr-input'>Annual Percentage Rate (APR):</label>
+        <input id=apr-input type=number min=0.0 step=0.01 placeholder="%">
+
+        <label for='first-payment-date'>First Payment Date:</label>
+        <input type=Date id=first-payment-date>
+
+        <label for='payment-type'>Payment Type:</label>
+        <select id=payment-type>
+          <option value='end'>End of Period</option>
+          <option value='beginning'>Beginning of Period</option>
+        </select>
+
+        <label for="payment-freq">Regular Payment Frequency:</label>
+        <select id="payment-freq">
+          <option value='weekly'>Weekly (52 Times/Year)</option>
+          <option value='bi-weekly'>Bi-Weekly (26 Times/Year)</option>
+          <option value='semi-monthly'>Semi-Monthly (24 Times/Year)</option>
+          <option selected value='monthly'>Monthly (12 Times/Year)</option>
+          <option value='bi-monthly'>Bi-Monthly (6 Times/Year)</option>
+          <option value='quarterly'>Quarterly (4 Times/Year)</option>
+          <option value='semi-annually'>Semi-Annualy (2 Times/Year)</option>
+          <option value='yearly'>Yearly (1 Time/Year)</option>
+        </select>
+
+        <label for="compound-freq">
+          Interest Compounding Frequency: <br>
+        </label>
+        <select id="compound-freq">
+          <option disabled>*Cannot be more frequent than payemnt frequency</option>
+          <option value='weekly'>Weekly (52 Times/Year)</option>
+          <option value='bi-weekly'>Bi-Weekly (26 Times/Year)</option>
+          <option value='semi-monthly'>Semi-Monthly (24 Times/Year)</option>
+          <option selected value='monthly'>Monthly (12 Times/Year)</option>
+          <option value='bi-monthly'>Bi-Monthly (6 Times/Year)</option>
+          <option value='quarterly'>Quarterly (4 Times/Year)</option>
+          <option value='semi-annually'>Semi-Annualy (2 Times/Year)</option>
+          <option value='yearly'>Yearly (1 Time/Year)</option>
+        </select>
+
+
+    </div>
+
+
+
+    <div class="grid-right results" id="general-results">
+      <p>Monthly Payment Amount: $<span id="monthly-payment-quant">00.00</span></p>
+      <p>Graph showing balance decline goes here</p>
+    </div>
+
+
+    <div class="grid-bottom-left results" id="payment-schedule">
+      <table id=schedule-table>
+        <tr>
+          <th>Payment Number</th>
+          <th>Due Date</th>
+          <th>Interest Paid</th>
+          <th>Principal Paid</th>
+          <th>Balance</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Date</td>
+          <td>99.99</td>
+          <td>99.99</td>
+          <td>99.99</td>
+        </tr>
+      </table>
+    </div>
+
+
+  </div>
+  
+
   <h1>This is the Amortization Calculator page</h1>
   <p>NEW INFO COMING SOON!</p>
+
+  <script src="amor.js"></script>
 </body>
 </html>
