@@ -58,6 +58,23 @@
 
     </div>
 
+    <div id="public-data"></div>
+
+    <!-- Admin-only user creation form -->
+<div id="create-user">
+  <h3>Create New User (Admin Only)</h3>
+  <form id="createUserForm">
+    <input type="text" name="newUsername" placeholder="New Username" required>
+    <input type="password" name="newPassword" placeholder="New Password" required>
+    <select name="role" required>
+      <option value="admin">Admin</option>
+      <option value="author">Author</option>
+    </select>
+    <button type="submit">Create User</button>
+  </form>
+  <div id="userMessage"></div>
+</div>
+
 
     <!-- Ensure script.js is loaded at the very end -->
     <script src="script.js"></script>

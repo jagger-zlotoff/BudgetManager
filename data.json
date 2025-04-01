@@ -1,0 +1,8 @@
+{
+    "message": "Hello from the server side!",
+    "items": [
+      { "id": 1, "name": "Item A" },
+      { "id": 2, "name": "Item B" }
+    ]
+  }
+  
