@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About - BudgetBuilder</title>
+  <title>Amortization Calculator - BudgetBuilder</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -16,92 +16,88 @@
     </ul>
   </nav>
 
-  <div class="two-col">
-    <div class="grid-left">
+  <h1>Amortization Calculator</h1>
 
+  <div class="container">
+    <!-- Two columns: left for inputs, right for results -->
+    <div class="two-col">
+      <!-- Left Column -->
+      <div class="app-col">
+        <h2>Loan Details</h2>
+        <div class="form-grid">
+          <label for="loan-term-input">Loan Term (Years):</label>
+          <input id="loan-term-input" type="number" placeholder="Years">
 
+          <label for="loan-amount-input">Loan Amount:</label>
+          <input id="loan-amount-input" type="number" placeholder="$">
 
-        <label for='loan-term-input'>Loan Term (Years):</label>
-        <input id=loan-term-input type=number>
+          <label for="apr-input">APR (%):</label>
+          <input id="apr-input" type="number" min="0" step="0.01" placeholder="%">
 
-        <label for='loan-amount-input'>Loan Amount:</label>
-        <input id=loan-amount-input type=number placeholder="$">
+          <label for="first-payment-date">First Payment Date:</label>
+          <input type="date" id="first-payment-date">
 
-        <label for='apr-input'>Annual Percentage Rate (APR):</label>
-        <input id=apr-input type=number min=0.0 step=0.01 placeholder="%">
+          <label for="payment-type">Payment Type:</label>
+          <select id="payment-type">
+            <option value="end">End of Period</option>
+            <option value="beginning">Beginning of Period</option>
+          </select>
 
-        <label for='first-payment-date'>First Payment Date:</label>
-        <input type=Date id=first-payment-date>
+          <label for="payment-freq">Payment Frequency:</label>
+          <select id="payment-freq">
+            <option value="weekly">Weekly (52/Year)</option>
+            <option value="bi-weekly">Bi-Weekly (26/Year)</option>
+            <option value="semi-monthly">Semi-Monthly (24/Year)</option>
+            <option selected value="monthly">Monthly (12/Year)</option>
+            <option value="bi-monthly">Bi-Monthly (6/Year)</option>
+            <option value="quarterly">Quarterly (4/Year)</option>
+            <option value="semi-annually">Semi-Annually (2/Year)</option>
+            <option value="yearly">Yearly (1/Year)</option>
+          </select>
 
-        <label for='payment-type'>Payment Type:</label>
-        <select id=payment-type>
-          <option value='end'>End of Period</option>
-          <option value='beginning'>Beginning of Period</option>
-        </select>
+          <label for="compound-freq">Compounding Frequency:</label>
+          <select id="compound-freq">
+            <option disabled>*Cannot be more frequent than payment frequency</option>
+            <option value="weekly">Weekly (52/Year)</option>
+            <option value="bi-weekly">Bi-Weekly (26/Year)</option>
+            <option value="semi-monthly">Semi-Monthly (24/Year)</option>
+            <option selected value="monthly">Monthly (12/Year)</option>
+            <option value="bi-monthly">Bi-Monthly (6/Year)</option>
+            <option value="quarterly">Quarterly (4/Year)</option>
+            <option value="semi-annually">Semi-Annually (2/Year)</option>
+            <option value="yearly">Yearly (1/Year)</option>
+          </select>
+        </div>
+        <button id="calculate-btn">Calculate Amortization</button>
+      </div>
 
-        <label for="payment-freq">Regular Payment Frequency:</label>
-        <select id="payment-freq">
-          <option value='weekly'>Weekly (52 Times/Year)</option>
-          <option value='bi-weekly'>Bi-Weekly (26 Times/Year)</option>
-          <option value='semi-monthly'>Semi-Monthly (24 Times/Year)</option>
-          <option selected value='monthly'>Monthly (12 Times/Year)</option>
-          <option value='bi-monthly'>Bi-Monthly (6 Times/Year)</option>
-          <option value='quarterly'>Quarterly (4 Times/Year)</option>
-          <option value='semi-annually'>Semi-Annualy (2 Times/Year)</option>
-          <option value='yearly'>Yearly (1 Time/Year)</option>
-        </select>
-
-        <label for="compound-freq">
-          Interest Compounding Frequency: <br>
-        </label>
-        <select id="compound-freq">
-          <option disabled>*Cannot be more frequent than payemnt frequency</option>
-          <option value='weekly'>Weekly (52 Times/Year)</option>
-          <option value='bi-weekly'>Bi-Weekly (26 Times/Year)</option>
-          <option value='semi-monthly'>Semi-Monthly (24 Times/Year)</option>
-          <option selected value='monthly'>Monthly (12 Times/Year)</option>
-          <option value='bi-monthly'>Bi-Monthly (6 Times/Year)</option>
-          <option value='quarterly'>Quarterly (4 Times/Year)</option>
-          <option value='semi-annually'>Semi-Annualy (2 Times/Year)</option>
-          <option value='yearly'>Yearly (1 Time/Year)</option>
-        </select>
-
-
+      <!-- Right Column -->
+      <div class="app-col">
+        <h2>Results</h2>
+        <p>Periodic Payment Amount: $<span id="payment-amount">0.00</span></p>
+        <p>Graph showing balance decline goes here</p>
+      </div>
     </div>
 
-
-
-    <div class="grid-right results" id="general-results">
-      <p>Monthly Payment Amount: $<span id="monthly-payment-quant">00.00</span></p>
-      <p>Graph showing balance decline goes here</p>
-    </div>
-
-
-    <div class="grid-bottom-left results" id="payment-schedule">
-      <table id=schedule-table>
-        <tr>
-          <th>Payment Number</th>
-          <th>Due Date</th>
-          <th>Interest Paid</th>
-          <th>Principal Paid</th>
-          <th>Balance</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Date</td>
-          <td>99.99</td>
-          <td>99.99</td>
-          <td>99.99</td>
-        </tr>
+    <!-- Payment Schedule -->
+    <div class="app-col wide-col">
+      <h2>Payment Schedule</h2>
+      <table id="schedule-table">
+        <thead>
+          <tr>
+            <th>Payment #</th>
+            <th>Due Date</th>
+            <th>Interest Paid</th>
+            <th>Principal Paid</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows added dynamically by script.js -->
+        </tbody>
       </table>
     </div>
-
-
-  </div>
-  
-
-  <h1>This is the Amortization Calculator page</h1>
-  <p>NEW INFO COMING SOON!</p>
+  </div> <!-- End .container -->
 
   <script src="amor.js"></script>
 </body>

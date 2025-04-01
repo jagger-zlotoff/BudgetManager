@@ -222,66 +222,83 @@ input[type=number] {
 }
 
 
-
-
-
-
 /* Amor Styles */
-.two-col {
+/* Centers content and sets a max width for the entire page */
+.container {
+    max-width: 1200px;   
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Two-column layout for the top section */
+  .two-col {
     display: grid;
-    column-gap: 50px;
-    grid-template-columns: 50% 50%;
-    row-gap: 25px;
-}
-
-.grid-left {
-    grid-column-start: 1;
-    grid-row-end: 1;
+    grid-template-columns: 1fr 1fr; /* each column takes equal space */
+    gap: 2rem;
+  }
+  
+  /* Boxed card style */
+  .app-col {
+    background: #fff;
+    border: 2px solid lightgrey;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     text-align: left;
-    display: grid;
-    gap: 0.25em;
-    grid-template-columns: 50% 50%;
-
-}
-
-.grid-left > label {
-    grid-column-start: 1;
+    height: auto;
+  }
+  
+  /* Wider box for the table */
+  .wide-col {
+    grid-column: 1 / span 2; /* ensures it spans both columns if used inside .two-col */
+    width: 100%;
+  }
+  
+  /* Keep the schedule table clean */
+  #schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  #schedule-table th, #schedule-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: right;
-    margin-top: 5%
-}
-
-.grid-left > input {
-    grid-column-start: 2;
-}
-
-.grid-left > select {
-    grid-column-start: 2;
-    min-height: 3.45em;    /* Dont know why its different from input */
-}
-
-.grid-right {
-    grid-column-start: 2;
-    grid-row-end: 1;
-}
-
-.help-text {
-    color: gray;
-}
-
-
-.grid-bottom-left {
-    grid-column-start: 1;
-}
-
-table, td, th {
-    border: 1px solid black;
-}
-
-td, th {
-    padding: 0.2em;
-}
-
-
+  }
+  
+  #schedule-table th {
+    background-color: #3b82f6;
+    color: white;
+    text-align: center;
+  }
+  
+  /* 
+    Put labels and inputs side by side in the form grid 
+    so the box is not super tall.
+  */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr; 
+    row-gap: 10px;
+    column-gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .form-grid label {
+    text-align: right;
+    align-self: center;
+  }
+  
+  .form-grid input,
+  .form-grid select {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-height: 2em;
+    padding: 0.25em;
+  }
+  
 /*about page style */
 .about-content {
     max-width: 800px;
