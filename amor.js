@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
       // Helper function to format numbers to 2 decimal places.
       function formatNumber(num) {
-        return num.toFixed(2);
+        return num.toLocaleString('en-US');
       }
   
       // Add a period to a date based on the payment frequency.
@@ -68,8 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
   
         // Validate inputs.
         if (isNaN(termYears) || isNaN(principal) || isNaN(apr) || !firstPaymentDate.getTime()) {
-          alert("Please fill in all fields with valid values.");
+          document.getElementById("calc-error-text").classList.remove("hidden");
+          console.log("Error")
           return;
+        }
+        else {
+          document.getElementById("calc-error-text").classList.add("hidden");
         }
   
         const paymentFreq = freqMapping[paymentFreqStr];
@@ -181,6 +185,18 @@ document.addEventListener("DOMContentLoaded", function () {
   
       // Attach the event listener to the Calculate button.
       document.getElementById("calculate-btn").addEventListener("click", calculateAmortization);
+
+
+      // Enable live updates by listening for updates to each field
+      document.getElementById("loan-term-input").addEventListener("input", calculateAmortization);
+      document.getElementById("loan-amount-input").addEventListener("input", calculateAmortization);
+      document.getElementById("apr-input").addEventListener("input", calculateAmortization);
+      document.getElementById("first-payment-date").addEventListener("input", calculateAmortization);
+      document.getElementById("payment-type").addEventListener("input", calculateAmortization);
+      document.getElementById("payment-freq").addEventListener("input", calculateAmortization);
+      document.getElementById("compound-freq").addEventListener("input", calculateAmortization);
+
+
     }
   });
   

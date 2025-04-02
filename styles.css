@@ -251,7 +251,6 @@ input[type=number] {
   /* Wider box for the table */
   .wide-col {
     grid-column: 1 / span 2; /* ensures it spans both columns if used inside .two-col */
-    width: 100%;
   }
   
   /* Keep the schedule table clean */
@@ -324,4 +323,12 @@ input[type=number] {
   }
   .about-section ul li {
     margin-bottom: 10px;
+  }
+
+  .error-text {
+    color: red;
+  }
+
+  .hidden {
+    display: none;
   }
