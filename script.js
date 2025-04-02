@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let totalExpenses = expenseItems.reduce((sum, item) => sum + item.amount, 0);
         let remainingBalance = totalIncome - totalExpenses;
 
-        document.getElementById("total-income").innerText = `${totalIncome.toFixed(2)}`;
-        document.getElementById("total-expenses").innerText = `${totalExpenses.toFixed(2)}`;
-        document.getElementById("remaining-balance").innerText = `${remainingBalance.toFixed(2)}`;
+        document.getElementById("total-income").innerText = `${totalIncome.toLocaleString('en-US')}`;
+        document.getElementById("total-expenses").innerText = `${totalExpenses.toLocaleString('en-US')}`;
+        document.getElementById("remaining-balance").innerText = `${remainingBalance.toLocaleString('en-US')}`;
     }
 
     function addIncomeItem() {
