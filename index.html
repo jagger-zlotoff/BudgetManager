@@ -1,65 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudgetBuilder</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>BudgetBuilder</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <!-- NavBar -->
-    <nav class="navbar">
-        <ul>
-          <li><a href="index.html" class="active"><i class="fas fa-home"></i>Budget Calculator</a></li>
-          <li><a href="amor.html"><i class="fas fa-chart-bar"></i>Amortization Calculator</a></li>
-          <li><a href="about.html"><i class="fas fa-info-circle"></i>About</a></li>
-        </ul>
-    </nav>
+  <!-- NavBar -->
+  <nav class="navbar">
+    <ul>
+      <li>
+        <a href="index.html" class="active">
+          <i class="fas fa-home"></i>Budget Calculator
+        </a>
+      </li>
+      <li><a href="amor.html"><i class="fas fa-chart-bar"></i>Amortization Calculator</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i>About</a></li>
+    </ul>
+  </nav>
 
-    <!-- Page Title -->
-    <h1>Budget Calculator</h1>
+  <!-- Page Title -->
+  <h1>Budget Calculator</h1>
 
-    <div class="tri-column">
+  <!-- Side‑by‑side wrapper -->
+  <div class="calc-and-inflation">
 
+    <!-- LEFT: Budget Calculator Card -->
+    <div class="budget-app card">
+      <div class="tri-column">
         <div class="app-col income-list">
-            <h2>Income</h2>
-            <div id="income-list">
-                <!-- Income items will be added here dynamically -->
-            </div>
-            <button id="add-income-button">Add Income</button>
+          <h2>Income</h2>
+          <div id="income-list"></div>
+          <button id="add-income-button">Add Income</button>
         </div>
-
         <div class="app-col expense-list">
-            <h2>Expenses</h2>
-            <div id="expense-list">
-                <!-- Expense items will be added here dynamically -->
-            </div>
-            <button id="add-expense-button">Add Expense</button>
+          <h2>Expenses</h2>
+          <div id="expense-list"></div>
+          <button id="add-expense-button">Add Expense</button>
         </div>
-
+      </div>
     </div>
+    <!-- /budget-app -->
 
-    <div class="calc-result">
-            <h2>Summary</h2>
-            <div class="income-chip">
-                <h3>Total Income</h3>
-                <p>$<span id="total-income">0.00</span></p>
-            </div>
-            <div class="expense-chip">
-                <h3>Total Expenses</h3>
-                <p>$<span id="total-expenses">0.00</span></p>
-            </div>
+    <!-- RIGHT: Inflation Widget Card -->
+    <div class="inflation-widget card">
+      <h2>Projected Inflation</h2>
+      <label for="inflation-rate">Annual Inflation Rate (%)</label>
+      <input
+        id="inflation-rate"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="e.g. 3.00"
+      />
+      <label for="inflation-years">Years to Project</label>
+      <input
+        id="inflation-years"
+        type="number"
+        min="1"
+        step="1"
+        value="1"
+      />
+      <button id="apply-inflation">Apply Projection</button>
+    </div>
+    <!-- /inflation-widget -->
 
-            <div class="sum-chip">
-                <h3>Remaining Balance</h3>
-                <p>$<span id="remaining-balance">0.00</span></p>
-            </div>
-        </div>
+  </div>
+  <!-- /calc-and-inflation -->
 
-    <!-- Ensure script.js is loaded at the very end -->
-    <script src="script.js"></script>
+  <!-- SUMMARY, now its own card -->
+  <div class="summary-card">
+    <h2>Summary</h2>
+    <div class="income-chip">
+      <h3>Total Income</h3>
+      <p>$<span id="total-income">0.00</span></p>
+    </div>
+    <div class="expense-chip">
+      <h3>Total Expenses</h3>
+      <p>$<span id="total-expenses">0.00</span></p>
+    </div>
+    <div class="sum-chip">
+      <h3>Remaining Balance</h3>
+      <p>$<span id="remaining-balance">0.00</span></p>
+    </div>
+  </div>
 
+  <!-- Real‑time updates -->
+  <div id="updates"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>

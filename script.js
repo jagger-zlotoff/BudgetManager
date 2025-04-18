@@ -93,4 +93,74 @@ document.addEventListener("DOMContentLoaded", function () {
     addIncomeItem();
     addExpenseItem();
     
+
+    // Utility: compound a value by rate over n years
+function compound(value, ratePct, years) {
+    const r = ratePct / 100;
+    return value * Math.pow(1 + r, years);
+  }
+  
+  document.getElementById('apply-inflation').addEventListener('click', () => {
+    const rate = parseFloat(document.getElementById('inflation-rate').value) || 0;
+    const years = parseInt(document.getElementById('inflation-years').value, 10) || 1;
+  
+    // Recalculate each income/expense input
+    document.querySelectorAll('.income-value').forEach(input => {
+      const base = parseFloat(input.value) || 0;
+      input.value = compound(base, rate, years).toFixed(2);
+    });
+    document.querySelectorAll('.expense-value').forEach(input => {
+      const base = parseFloat(input.value) || 0;
+      input.value = compound(base, rate, years).toFixed(2);
+    });
+  
+    // Re‑compute totals
+    updateBudget();
+  });
+  
+
+        // -------------------- SSE Real-Time Updates --------------------
+    // Check if EventSource is supported by the browser
+    if (!!window.EventSource) {
+        const evtSource = new EventSource('/events');
+
+        evtSource.onmessage = function (event) {
+            console.log("SSE received:", event.data);
+            // Parse the JSON data received from the server
+            const message = JSON.parse(event.data);
+
+            // Check for an existing "updates" container; if not, create one.
+            let updatesContainer = document.getElementById('updates');
+            if (!updatesContainer) {
+                updatesContainer = document.createElement('div');
+                updatesContainer.id = 'updates';
+                updatesContainer.style.border = '1px solid #ccc';
+                updatesContainer.style.padding = '10px';
+                updatesContainer.style.margin = '10px';
+                updatesContainer.style.maxHeight = '200px';
+                updatesContainer.style.overflowY = 'auto';
+                // Append this container to the bottom of the body
+                document.body.appendChild(updatesContainer);
+            }
+
+            // Create a new message div to display the event
+            const newMsg = document.createElement('div');
+            // Use the user's provided name, or fallback to the IP
+            newMsg.innerHTML = `<strong>${message.modifiedBy}</strong> performed <em>${message.action}</em> with data: ${JSON.stringify(message.data)}`;
+            // Optionally, style the message a bit:
+            newMsg.style.padding = '5px';
+            newMsg.style.borderBottom = '1px solid #eee';
+
+            // Insert the new message at the top of the container
+            updatesContainer.insertBefore(newMsg, updatesContainer.firstChild);
+        };
+
+        evtSource.onerror = function (err) {
+            console.error('SSE error:', err);
+        };
+    } else {
+        console.warn('Your browser does not support Server-Sent Events.');
+    }
 });
+
+

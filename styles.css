@@ -331,3 +331,44 @@ input[type=number] {
   .hidden {
     display: none;
   }
+
+ /* make the two cards sit side by side */
+.calc-and-inflation {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 65rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* 1) Tri‑column: no more forced scroll or fixed height */
+.tri-column {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;            /* some breathing room between the two cards */
+  /* remove these: overflow: scroll; max-height: 75vh; */
+  overflow: visible;
+  max-height: none;
+}
+
+/* 2) app‑col: let them size themselves naturally */
+.app-col {
+  /* remove any hard height */
+  height: auto !important;
+  /* fill available flex space equally */
+  flex: 1 1 0;
+  margin: 0.5em;
+}
+
+/* 3) Make the inflation widget narrower */
+.inflation-widget {
+  background-color: #fff;
+  padding: 1rem; 
+  flex: 0 0 12rem;   
+  max-width: 12rem;
+}
+  
+.card {
+  background: #fff;
+}
