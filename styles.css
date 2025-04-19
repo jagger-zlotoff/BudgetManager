@@ -1,374 +1,698 @@
-/* ---------------------- */
-/*       NAVIGATION       */
-/* ---------------------- */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    background: #3b82f6;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    z-index: 1000;
+@media screen and (min-width: 1000px) {
+    /* ---------------------- */
+    /*       NAVIGATION       */
+    /* ---------------------- */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        background: #3b82f6;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px;
+        z-index: 1000;
 
-    /* Flex container to center items horizontally */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        /* Flex container to center items horizontally */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Remove default list style, horizontally stack items */
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem; /* space between nav items */
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Each list item */
+    .navbar ul li {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Links: icons + text side by side */
+    .navbar ul li a {
+        display: flex;
+        align-items: center;
+        gap: 8px;                /* space between icon & text */
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        position: relative;      /* for underline effect */
+        padding: 8px 0;
+        transition: color 0.3s ease;
+    }
+
+    /* The underline "slide in" effect for hover/active */
+    .navbar ul li a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;          /* place the line just under text */
+        width: 0;
+        height: 2px;
+        background-color: #3b82f6;
+        transition: width 0.3s ease;
+    }
+
+    /* When hovered or active, show the underline */
+    .navbar ul li a:hover::after,
+    .navbar ul li a.active::after {
+
+        width: 100%;
+    }
+
+    /* Change text color on hover or active */
+    .navbar ul li a:hover,
+    .navbar ul li a.active {
+        color: #fff;
+    }
+
+
+    /* Base Style */
+    body {
+
+        padding-top: 80px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f4f4f4;
+        max-width: 65rem;
+        margin: auto;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    p {
+        font-size: 18px;
+    }
+    img {
+        max-width: 300px; 
+        height: auto; 
+        display: block; 
+        margin: auto;
+    }
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    input, select {
+        background-color: white;
+        border-radius: 10px;
+        border: 2px solid black;
+        min-height: 3em;
+    }
+
+    /* Remove the arrows from the number fields */
+    /* Webkit/KHTML */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* Gecko */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+
+
+
+    /* Budget Calculator classes */
+    .budget-item > input {
+        max-width: 10em;
+    }
+
+    .tri-column {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        overflow:scroll;
+        max-height: 75vh;
+        border: 2px solid lightgray;
+        padding: 2px;
+    }
+
+    .budget-item {
+        border: 2px solid black;
+        border-radius: 50px;
+        padding: 0.75em;
+        margin: 1em 0 1em 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .budget-item > input {
+        margin-left: 5px;
+    }
+
+    #income-list > .budget-item {
+        background-color:  #aaffaa;
+    }
+
+    #expense-list > .budget-item {
+        background-color: pink;
+    }
+
+    #add-expense-button, #add-income-button {
+        width: 100%;
+        height: 5em;
+        margin: 0;
+        border-radius: 50px;
+    }
+
+    .delete-item > img {
+        max-width: 100%;
+    }
+
+    .delete-item {
+        height: 3em;
+        width: 3em;
+    }
+
+    .app-col {
+        margin-left: 10px;
+        border: 2px solid lightgrey;
+        border-radius: 50px;
+        height: 200%;
+        flex-grow: 1;
+        padding: 5px;
+        padding-bottom: 30px;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .calc-result {
+        margin-right: 10px;
+    }
+
+    .income-chip {
+        background-color: #aaffaa;
+    }
+
+    .expense-chip {
+        background-color: pink;
+    }
+
+    .income-chip, .expense-chip, .sum-chip {
+        border: 2px solid black;
+        border-radius: 50px;
+        margin-top: 5px;
+    }
+
+    .calc-result > div > h3, .calc-result > div > p {
+        margin: 0.5em;
+    }
+
+
+    /* Amor Styles */
+    /* Centers content and sets a max width for the entire page */
+    .container {
+        max-width: 1200px;   
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      /* Two-column layout for the top section */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* each column takes equal space */
+        gap: 2rem;
+      }
+      
+      /* Boxed card style */
+      .app-col {
+        background: #fff;
+        border: 2px solid lightgrey;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        text-align: left;
+        height: fit-content;
+      }
+      
+      /* Wider box for the table */
+      .wide-col {
+        grid-column: 1 / span 2; /* ensures it spans both columns if used inside .two-col */
+      }
+      
+      /* Keep the schedule table clean */
+      #schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      
+      #schedule-table th, #schedule-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: right;
+      }
+      
+      #schedule-table th {
+        background-color: #3b82f6;
+        color: white;
+        text-align: center;
+      }
+      
+      /* 
+        Put labels and inputs side by side in the form grid 
+        so the box is not super tall.
+      */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 150px 1fr; 
+        row-gap: 10px;
+        column-gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .form-grid label {
+        text-align: right;
+        align-self: center;
+      }
+      
+      .form-grid input,
+      .form-grid select {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        min-height: 2em;
+        padding: 0.25em;
+      }
+      
+    /*about page style */
+    .about-content {
+        max-width: 800px;
+        margin: 20px auto 20px; /* top margin to account for fixed navbar */
+        padding: 0 20px;
+      }
+      .about-section {
+        background: #fff;
+        border: 2px solid lightgrey;
+        border-radius: 50px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        text-align: left;
+      }
+      .about-section h2 {
+        color: #3b82f6;
+        margin-top: 0;
+      }
+      .about-section ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      .about-section ul li {
+        margin-bottom: 10px;
+      }
+
+      .error-text {
+        color: red;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+     /* make the two cards sit side by side */
+    .calc-and-inflation {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      max-width: 65rem;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* 1) Tri‑column: no more forced scroll or fixed height */
+    .tri-column {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;            /* some breathing room between the two cards */
+      /* remove these: overflow: scroll; max-height: 75vh; */
+      overflow: visible;
+      max-height: none;
+    }
+
+    /* 2) app‑col: let them size themselves naturally */
+    .app-col {
+      /* remove any hard height */
+      height: auto !important;
+      /* fill available flex space equally */
+      flex: 1 1 0;
+      margin: 0.5em;
+    }
+
+    /* 3) Make the inflation widget narrower */
+    .inflation-widget {
+      background-color: #fff;
+      padding: 1rem; 
+      flex: 0 0 12rem;   
+      max-width: 12rem;
+    }
+      
+    .card {
+      background: #fff;
+    }
 }
 
-/* Remove default list style, horizontally stack items */
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem; /* space between nav items */
-    margin: 0;
-    padding: 0;
-}
+@media screen and (min-width: 300px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #3b82f6;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px;
+        z-index: 1000;
+        
+        overflow-x: scroll;
 
-/* Each list item */
-.navbar ul li {
-    margin: 0;
-    padding: 0;
-}
+        /* Flex container to center items horizontally */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+    }
+        /* Remove default list style, horizontally stack items */
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem; /* space between nav items */
+        margin: 0;
+        margin-left: 4em;
+        margin-right: 2em;
+        padding: 0;
+    }
 
-/* Links: icons + text side by side */
-.navbar ul li a {
-    display: flex;
-    align-items: center;
-    gap: 8px;                /* space between icon & text */
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-    position: relative;      /* for underline effect */
-    padding: 8px 0;
-    transition: color 0.3s ease;
-}
+    /* Each list item */
+    .navbar ul li {
+        margin: 0;
+        padding: 0;
+    }
 
-/* The underline "slide in" effect for hover/active */
-.navbar ul li a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;          /* place the line just under text */
-    width: 0;
-    height: 2px;
-    background-color: #3b82f6;
-    transition: width 0.3s ease;
-}
+    /* Links: icons + text side by side */
+    .navbar ul li a {
+        display: flex;
+        align-items: center;
+        gap: 8px;                /* space between icon & text */
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        position: relative;      /* for underline effect */
+        padding: 8px 0;
+        transition: color 0.3s ease;
+    }
 
-/* When hovered or active, show the underline */
-.navbar ul li a:hover::after,
-.navbar ul li a.active::after {
+    /* The underline "slide in" effect for hover/active */
+    .navbar ul li a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;          /* place the line just under text */
+        width: 0;
+        height: 2px;
+        background-color: #3b82f6;
+        transition: width 0.3s ease;
+    }
 
-    width: 100%;
-}
+    /* When hovered or active, show the underline */
+    .navbar ul li a:hover::after,
+    .navbar ul li a.active::after {
 
-/* Change text color on hover or active */
-.navbar ul li a:hover,
-.navbar ul li a.active {
-    color: #fff;
-}
+        width: 100%;
+    }
+
+    /* Change text color on hover or active */
+    .navbar ul li a:hover,
+    .navbar ul li a.active {
+        color: #fff;
+    }
+    
+    
+    /* Base Style */
+    body {
+        padding-top: 80px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f4f4f4;
+        max-width: 65rem;
+        margin: auto;
+    }
+    
+    h1 {
+        color: #333;
+    }
+    
+    p {
+        font-size: 18px;
+    }
+    img {
+        max-width: 300px; 
+        height: auto; 
+        display: block; 
+        margin: auto;
+    }
+    
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    input, select {
+        background-color: white;
+        border-radius: 10px;
+        border: 2px solid black;
+        min-height: 3em;
+    }
+    
+    /* Remove the arrows from the number fields */
+    /* Webkit/KHTML */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* Gecko */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    
+    /* Budget Calculator classes */
+    .budget-item > input {
+        max-width: 9em;
+    }
+
+    .tri-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow:scroll;
+        max-height: 75vh;
+        border: 2px solid lightgray;
+        padding: 2px;
+    }
+
+    .budget-item {
+        border: 2px solid black;
+        border-radius: 50px;
+        padding: 0.75em;
+        margin: 0.25em 0 0.25em 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .budget-item > input {
+        margin-left: 5px;
+    }
+
+    #income-list > .budget-item {
+        background-color:  #aaffaa;
+    }
+
+    #expense-list > .budget-item {
+        background-color: pink;
+    }
+
+    #add-expense-button, #add-income-button {
+        width: 100%;
+        height: 5em;
+        margin: 0;
+        border-radius: 50px;
+    }
+
+    .delete-item > img {
+        max-width: 100%;
+    }
+
+    .delete-item {
+        height: 3em;
+        width: 3em;
+    }
+
+    .app-col {
+        border: 2px solid lightgrey;
+        border-radius: 25px;
+        height: 200%;
+        flex-grow: 1;
+        /*! padding: 5px; */
+        padding-bottom: 30px;
+        /*! margin: 0.5em 10px 0.5em 10px; */
+    }
+
+    .calc-result {
+        margin-right: 10px;
+    }
+
+    .income-chip {
+        background-color: #aaffaa;
+    }
+
+    .expense-chip {
+        background-color: pink;
+    }
+    
+    .income-chip > *, .expense-chip > *, .sum-chip > * {
+        margin: 0;
+    }
+
+    .calc-result > div > h3, .calc-result > div > p {
+        margin: 0.5em;
+    }
+    
+    .summary-card {
+        width: 100%;
+    }
+    
+    /* Amor Styles */
+    /* Centers content and sets a max width for the entire page */
+    .container {
+        max-width: 1200px;   
+        /*! margin: 0 auto; */
+        padding: 0 10px 0 10px;
+      }
+      
+      /* Two-column layout for the top section */
+      .two-col {
+        display: flex;
+         /* each column takes equal space */
+        flex-direction: column;
+      }
+      
+      /* Boxed card style */
+      .app-col {
+        background: #fff;
+        border: 2px solid lightgrey;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        text-align: left;
+        height: fit-content;
+      }
+    
+    .wide-col {
+        overflow-x: scroll;
+    }
+    
+    .two-col > .app-col {
+        margin: 5px 0;
+    }
+    
+    .two-col > .app-col > h2 {
+        margin: 5px 0;
+    }
+    
+    .two-col > .app-col > button {
+        width: 100%;
+        font-size: 20px;
+    }
+    
+    .error-text {
+        color: red;
+      }
+
+      .hidden {
+        display: none;
+      }
+      
+      /* Wider box for the table */
+      .wide-col > * {
+        margin-top: 0; /* ensures it spans both columns if used inside .two-col */
+      }
+      
+      /* Keep the schedule table clean */
+      #schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      
+      #schedule-table th, #schedule-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: right;
+      }
+      
+      #schedule-table th {
+        background-color: #3b82f6;
+        color: white;
+        text-align: center;
+      }
+      
+      /* 
+        Put labels and inputs side by side in the form grid 
+        so the box is not super tall.
+      */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 150px 1fr; 
+        row-gap: 10px;
+        column-gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .form-grid label {
+        text-align: right;
+        align-self: center;
+      }
+      
+      .form-grid input,
+      .form-grid select {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        min-height: 2em;
+        padding: 0.25em;
+      }
 
 
-/* Base Style */
-body {
-
-    padding-top: 80px;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
-    max-width: 65rem;
-    margin: auto;
-}
-
-h1 {
-    color: #333;
-}
-
-p {
-    font-size: 18px;
-}
-img {
-    max-width: 300px; 
-    height: auto; 
-    display: block; 
-    margin: auto;
-}
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-button:hover {
-    background-color: #0056b3;
-}
-
-input, select {
-    background-color: white;
-    border-radius: 10px;
-    border: 2px solid black;
-    min-height: 3em;
-}
-
-/* Remove the arrows from the number fields */
-/* Webkit/KHTML */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-/* Gecko */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-
-
-
-/* Budget Calculator classes */
-.budget-item > input {
-    max-width: 10em;
-}
-
-.tri-column {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    overflow:scroll;
-    max-height: 75vh;
-    border: 2px solid lightgray;
-    padding: 2px;
-}
-
-.budget-item {
-    border: 2px solid black;
-    border-radius: 50px;
-    padding: 0.75em;
-    margin: 1em 0 1em 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.budget-item > input {
-    margin-left: 5px;
-}
-
-#income-list > .budget-item {
-    background-color:  #aaffaa;
-}
-
-#expense-list > .budget-item {
-    background-color: pink;
-}
-
-#add-expense-button, #add-income-button {
-    width: 100%;
-    height: 5em;
-    margin: 0;
-    border-radius: 50px;
-}
-
-.delete-item > img {
-    max-width: 100%;
-}
-
-.delete-item {
-    height: 3em;
-    width: 3em;
-}
-
-.app-col {
-    margin-left: 10px;
-    border: 2px solid lightgrey;
-    border-radius: 50px;
-    height: 200%;
-    flex-grow: 1;
-    padding: 5px;
-    padding-bottom: 30px;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-}
-
-.calc-result {
-    margin-right: 10px;
-}
-
-.income-chip {
-    background-color: #aaffaa;
-}
-
-.expense-chip {
-    background-color: pink;
-}
-
-.income-chip, .expense-chip, .sum-chip {
-    border: 2px solid black;
-    border-radius: 50px;
-    margin-top: 5px;
-}
-
-.calc-result > div > h3, .calc-result > div > p {
-    margin: 0.5em;
-}
-
-
-/* Amor Styles */
-/* Centers content and sets a max width for the entire page */
-.container {
-    max-width: 1200px;   
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  /* Two-column layout for the top section */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* each column takes equal space */
-    gap: 2rem;
-  }
-  
-  /* Boxed card style */
-  .app-col {
-    background: #fff;
-    border: 2px solid lightgrey;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    text-align: left;
-    height: fit-content;
-  }
-  
-  /* Wider box for the table */
-  .wide-col {
-    grid-column: 1 / span 2; /* ensures it spans both columns if used inside .two-col */
-  }
-  
-  /* Keep the schedule table clean */
-  #schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  #schedule-table th, #schedule-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: right;
-  }
-  
-  #schedule-table th {
-    background-color: #3b82f6;
-    color: white;
-    text-align: center;
-  }
-  
-  /* 
-    Put labels and inputs side by side in the form grid 
-    so the box is not super tall.
-  */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 150px 1fr; 
-    row-gap: 10px;
-    column-gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .form-grid label {
-    text-align: right;
-    align-self: center;
-  }
-  
-  .form-grid input,
-  .form-grid select {
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    min-height: 2em;
-    padding: 0.25em;
-  }
-  
-/*about page style */
-.about-content {
-    max-width: 800px;
-    margin: 20px auto 20px; /* top margin to account for fixed navbar */
-    padding: 0 20px;
-  }
-  .about-section {
-    background: #fff;
-    border: 2px solid lightgrey;
-    border-radius: 50px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    text-align: left;
-  }
-  .about-section h2 {
-    color: #3b82f6;
-    margin-top: 0;
-  }
-  .about-section ul {
-    list-style: none;
-    padding-left: 0;
-  }
-  .about-section ul li {
-    margin-bottom: 10px;
-  }
-
-  .error-text {
-    color: red;
-  }
-
-  .hidden {
-    display: none;
-  }
-
- /* make the two cards sit side by side */
-.calc-and-inflation {
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
-  max-width: 65rem;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-/* 1) Tri‑column: no more forced scroll or fixed height */
-.tri-column {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;            /* some breathing room between the two cards */
-  /* remove these: overflow: scroll; max-height: 75vh; */
-  overflow: visible;
-  max-height: none;
-}
-
-/* 2) app‑col: let them size themselves naturally */
-.app-col {
-  /* remove any hard height */
-  height: auto !important;
-  /* fill available flex space equally */
-  flex: 1 1 0;
-  margin: 0.5em;
-}
-
-/* 3) Make the inflation widget narrower */
-.inflation-widget {
-  background-color: #fff;
-  padding: 1rem; 
-  flex: 0 0 12rem;   
-  max-width: 12rem;
-}
-  
-.card {
-  background: #fff;
 }
