@@ -7,18 +7,11 @@ function compound(value, ratePct, years) {
 document.getElementById('apply-inflation').addEventListener('click', () => {
   const rate = parseFloat(document.getElementById('inflation-rate').value) || 0;
   const years = parseInt(document.getElementById('inflation-years').value, 10) || 1;
-  
-  // Recalculate each income/expense input
-  document.querySelectorAll('.income-value').forEach(input => {
-    const base = parseFloat(input.value) || 0;
-    input.value = compound(base, rate, years).toFixed(2);
-  });
-  document.querySelectorAll('.expense-value').forEach(input => {
-    const base = parseFloat(input.value) || 0;
-    input.value = compound(base, rate, years).toFixed(2);
-  });
 
-  // Re‑compute totals
-  updateBudget();
+  const before = parseFloat(document.getElementById('inflation-value-input').value) || 0;
+
+  const after = parseFloat(compound(before, rate, years));
+
+  document.getElementById('inflation-result').innerText = after.toLocaleString('en-US');
 });
   

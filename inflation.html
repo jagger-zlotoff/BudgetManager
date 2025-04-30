@@ -26,6 +26,13 @@
 <!-- RIGHT: Inflation Widget Card -->
   <div class="inflation-widget card">
     <h2>Projected Inflation</h2>
+    <label for="inflation-value-input">Current Value ($)</label>
+    <input id="inflation-value-input"
+           type="number"
+           min="0"
+           step="0.01"
+           placeholder="$"
+    />
     <label for="inflation-rate">Annual Inflation Rate (%)</label>
     <input
       id="inflation-rate"
@@ -43,6 +50,8 @@
       value="1"
     />
     <button id="apply-inflation">Apply Projection</button>
+    <h2>Result:</h2>
+    <h2>$<span id="inflation-result">0</span></h2>
   </div>
   <!-- /inflation-widget -->
   <script src="inflation.js"></script>
