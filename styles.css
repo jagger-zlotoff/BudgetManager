@@ -273,7 +273,7 @@
 
   /* Two-column layout for the top section */
   .two-col {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 1fr 1fr;
     /* each column takes equal space */
     gap: 2rem;
@@ -405,7 +405,7 @@
   }
 
   /* 2) app‑col: let them size themselves naturally */
-  .app-col {
+  .tri-column > .app-col {
     /* remove any hard height */
     height: auto !important;
     /* fill available flex space equally */
@@ -619,7 +619,7 @@
     width: 3em;
   }
 
-  .app-col {
+  .tri-column > .app-col {
     border: 2px solid lightgrey;
     border-radius: 25px;
     height: 200%;
@@ -673,7 +673,7 @@
   }
 
   /* Boxed card style */
-  .app-col {
+  .tri-column > .app-col {
     background: #fff;
     border: 2px solid lightgrey;
     border-radius: 20px;
@@ -760,5 +760,23 @@
     padding: 0.25em;
   }
 
+  .inflation-widget {
+    background-color: #fff;
+    padding: 1rem;
+    flex: 0 0 12rem;
+    max-width: 12rem;
+  }
 
+  .card {
+    background: #fff;
+  }
+  .about-section {
+    background: #fff;
+    border: 2px solid lightgrey;
+    border-radius: 50px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
 }
