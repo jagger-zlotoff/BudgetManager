@@ -401,6 +401,7 @@
     /* remove these: overflow: scroll; max-height: 75vh; */
     overflow: visible;
     max-height: none;
+    flex-direction: row !important;
   }
 
   /* 2) app‑col: let them size themselves naturally */
@@ -574,8 +575,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: scroll;
-    max-height: 75vh;
+    max-height: 55vh;
     border: 2px solid lightgray;
     padding: 2px;
   }
@@ -627,6 +627,7 @@
     /*! padding: 5px; */
     padding-bottom: 30px;
     /*! margin: 0.5em 10px 0.5em 10px; */
+    overflow-y: scroll;
   }
 
   .calc-result {
