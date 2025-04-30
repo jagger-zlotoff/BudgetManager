@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>BudgetBuilder</title>
   <link
     rel="stylesheet"
@@ -30,36 +30,35 @@
   <!-- Page Title -->
   <h1>Budget Calculator</h1>
 
-  <!-- Side‑by‑side wrapper -->
+  <!-- Mode Tabs -->
+  <div class="calc-tabs">
+    <button id="tab-monthly" class="active">Monthly</button>
+    <button id="tab-yearly">Yearly</button>
+  </div>
 
+  <!-- Budget Calculator Card -->
+  <div class="budget-app card">
+    <div class="tri-column">
+      <!-- Income Column -->
+      <div class="app-col income-list">
+        <h2>Income</h2>
+        <div id="income-list"></div>
+        <button id="add-income-button">Add Income</button>
+      </div>
 
-    <!-- LEFT: Budget Calculator Card -->
-    <div class="budget-app card">
-      <div class="tri-column">
-        <div class="app-col income-list">
-          <h2>Income</h2>
-          <div id="income-list"></div>
-          <button id="add-income-button">Add Income</button>
-        </div>
-        <div class="app-col expense-list">
-          <h2>Expenses</h2>
-          <div id="expense-list"></div>
-          <button id="add-expense-button">Add Expense</button>
-          <!-- NEW: Speak Expense -->
-          <button id="speak-expense-button" style="display:none;">
-            🎤 Speak Expense
-          </button>
-        </div>
+      <!-- Expenses Column -->
+      <div class="app-col expense-list">
+        <h2>Expenses</h2>
+        <div id="expense-list"></div>
+        <button id="add-expense-button">Add Expense</button>
+        <button id="speak-expense-button" style="display:none;">🎤 Speak Expense</button>
       </div>
     </div>
-    <!-- /budget-app -->
+  </div>
 
-    
-  <!-- /calc-and-inflation -->
-
-  <!-- SUMMARY, now its own card -->
+  <!-- Summary Card -->
   <div class="summary-card">
-    <h2>Summary</h2>
+    <h2 id="summary-title">Monthly Summary</h2>
     <div class="income-chip">
       <h3>Total Income</h3>
       <p>$<span id="total-income">0.00</span></p>
@@ -74,9 +73,9 @@
     </div>
   </div>
 
-  <!-- Real‑time updates -->
+  <!-- Real-time updates -->
   <div id="updates"></div>
-    
+
   <script src="script.js"></script>
 </body>
 </html>

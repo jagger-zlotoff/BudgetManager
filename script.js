@@ -3,18 +3,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /** ---------------- Income & Expenses Section ---------------- **/
 
+    // → MODE SWITCHING
+    const tabMonthly = document.getElementById('tab-monthly');
+    const tabYearly = document.getElementById('tab-yearly');
+    const summaryTitle = document.getElementById('summary-title');
+    let summaryMode = 'monthly'; // or 'yearly'
+
+    function setMode(mode) {
+        summaryMode = mode;
+        tabMonthly.classList.toggle('active', mode === 'monthly');
+        tabYearly.classList.toggle('active', mode === 'yearly');
+        summaryTitle.textContent = mode === 'monthly'
+            ? 'Monthly Summary'
+            : 'Yearly Summary';
+        updateBudget();
+    }
+
+    tabMonthly.addEventListener('click', () => setMode('monthly'));
+    tabYearly.addEventListener('click', () => setMode('yearly'));
+
+
     let incomeItems = [];
     let expenseItems = [];
 
     function updateBudget() {
-        let totalIncome = incomeItems.reduce((sum, item) => sum + item.amount, 0);
-        let totalExpenses = expenseItems.reduce((sum, item) => sum + item.amount, 0);
+        const factor = summaryMode === 'yearly' ? 12 : 1;
+
+        let totalIncome = incomeItems
+            .reduce((sum, item) => sum + item.amount, 0) * factor;
+        let totalExpenses = expenseItems
+            .reduce((sum, item) => sum + item.amount, 0) * factor;
         let remainingBalance = totalIncome - totalExpenses;
 
-        document.getElementById("total-income").innerText = totalIncome.toLocaleString('en-US');
-        document.getElementById("total-expenses").innerText = totalExpenses.toLocaleString('en-US');
-        document.getElementById("remaining-balance").innerText = remainingBalance.toLocaleString('en-US');
+        document.getElementById("total-income").innerText =
+            totalIncome.toLocaleString('en-US');
+        document.getElementById("total-expenses").innerText =
+            totalExpenses.toLocaleString('en-US');
+        document.getElementById("remaining-balance").innerText =
+            remainingBalance.toLocaleString('en-US');
     }
+
 
     function addIncomeItem() {
         const incomeList = document.getElementById("income-list");
