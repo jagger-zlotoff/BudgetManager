@@ -22,6 +22,7 @@
       </li>
       <li><a href="amor.html"><i class="fas fa-chart-bar"></i>Amortization Calculator</a></li>
       <li><a href="inflation.html"><i class="fas fa-wrench"></i>Other Tools</a></li>
+      <li><a href="savings.html"><i class="fas fa-piggy-bank"></i>Savings Calculator</a></li>
       <li><a href="about.html"><i class="fas fa-info-circle"></i>About</a></li>
     </ul>
   </nav>
@@ -44,6 +45,10 @@
           <h2>Expenses</h2>
           <div id="expense-list"></div>
           <button id="add-expense-button">Add Expense</button>
+          <!-- NEW: Speak Expense -->
+          <button id="speak-expense-button" style="display:none;">
+            🎤 Speak Expense
+          </button>
         </div>
       </div>
     </div>
@@ -71,7 +76,7 @@
 
   <!-- Real‑time updates -->
   <div id="updates"></div>
-
+    
   <script src="script.js"></script>
 </body>
 </html>

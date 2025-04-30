@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Savings Calculator - BudgetBuilder</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i>Budget Calculator</a></li>
+      <li><a href="amor.html"><i class="fas fa-chart-bar"></i>Amortization Calculator</a></li>
+      <li><a href="savings.html" class="active"><i class="fas fa-piggy-bank"></i>Savings Calculator</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i>About</a></li>
+    </ul>
+  </nav>
+
+  <h1>Savings Calculator</h1>
+
+  <div class="container">
+    <div class="two-col">
+      <!-- Left: Inputs -->
+      <div class="app-col">
+        <h2>Savings Details</h2>
+        <div class="form-grid">
+          <label for="savings-initial">Initial Deposit:</label>
+          <input id="savings-initial" type="number" placeholder="$" min="0" step="0.01">
+
+          <label for="savings-term">Term (Years):</label>
+          <input id="savings-term" type="number" placeholder="Years" min="0" step="1">
+
+          <label for="savings-apr">APR (%):</label>
+          <input id="savings-apr" type="number" min="0" step="0.01" placeholder="%">
+
+          <label for="savings-start-date">Start Date:</label>
+          <input id="savings-start-date" type="date">
+
+          <label for="savings-compound">Compounding Frequency:</label>
+          <select id="savings-compound">
+            <option value="daily">Daily (365/Yr)</option>
+            <option value="monthly" selected>Monthly (12/Yr)</option>
+            <option value="quarterly">Quarterly (4/Yr)</option>
+            <option value="semi-annually">Semi-Annually (2/Yr)</option>
+            <option value="yearly">Yearly (1/Yr)</option>
+          </select>
+        </div>
+        <button id="calculate-savings-btn">Calculate Growth</button>
+        <sub id="savings-error-text" class="error-text hidden">* Please fill out all fields correctly</sub>
+      </div>
+
+      <!-- Right: Results & Chart -->
+      <div class="app-col">
+        <h2>Results</h2>
+        <p>Future Value: $<span id="future-value">0.00</span></p>
+        <canvas id="growthChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Schedule Table -->
+    <div class="app-col wide-col">
+      <h2>Growth Schedule</h2>
+      <table id="savings-schedule-table">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Date</th>
+            <th>Interest Earned</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- filled by savings.js -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="savings.js"></script>
+</body>
+</html>

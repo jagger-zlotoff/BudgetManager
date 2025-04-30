@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log(" Script loaded and running!");
+    console.log("Script loaded and running!");
 
     /** ---------------- Income & Expenses Section ---------------- **/
 
@@ -11,14 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let totalExpenses = expenseItems.reduce((sum, item) => sum + item.amount, 0);
         let remainingBalance = totalIncome - totalExpenses;
 
-        document.getElementById("total-income").innerText = `${totalIncome.toLocaleString('en-US')}`;
-        document.getElementById("total-expenses").innerText = `${totalExpenses.toLocaleString('en-US')}`;
-        document.getElementById("remaining-balance").innerText = `${remainingBalance.toLocaleString('en-US')}`;
+        document.getElementById("total-income").innerText = totalIncome.toLocaleString('en-US');
+        document.getElementById("total-expenses").innerText = totalExpenses.toLocaleString('en-US');
+        document.getElementById("remaining-balance").innerText = remainingBalance.toLocaleString('en-US');
     }
 
     function addIncomeItem() {
-        let incomeList = document.getElementById("income-list");
-        let newItem = document.createElement("div");
+        const incomeList = document.getElementById("income-list");
+        const newItem = document.createElement("div");
         newItem.classList.add("budget-item");
 
         newItem.innerHTML = `
@@ -29,31 +29,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         incomeList.appendChild(newItem);
 
-        let deleteButton = newItem.querySelector(".delete-item");
+        const deleteButton = newItem.querySelector(".delete-item");
         deleteButton.addEventListener("click", function () {
-            let index = incomeItems.findIndex(item => item.element === newItem);
-            if (index !== -1) {
-                incomeItems.splice(index, 1);
-            }
+            const index = incomeItems.findIndex(item => item.element === newItem);
+            if (index !== -1) incomeItems.splice(index, 1);
             newItem.remove();
             updateBudget();
         });
 
-        let inputField = newItem.querySelector(".income-value");
+        const inputField = newItem.querySelector(".income-value");
         inputField.addEventListener("input", function () {
-            let index = incomeItems.findIndex(item => item.element === newItem);
+            const value = parseFloat(inputField.value) || 0;
+            const index = incomeItems.findIndex(item => item.element === newItem);
             if (index !== -1) {
-                incomeItems[index].amount = parseFloat(inputField.value) || 0;
+                incomeItems[index].amount = value;
             } else {
-                incomeItems.push({ element: newItem, amount: parseFloat(inputField.value) || 0 });
+                incomeItems.push({ element: newItem, amount: value });
             }
             updateBudget();
         });
     }
 
     function addExpenseItem() {
-        let expenseList = document.getElementById("expense-list");
-        let newItem = document.createElement("div");
+        const expenseList = document.getElementById("expense-list");
+        const newItem = document.createElement("div");
         newItem.classList.add("budget-item");
 
         newItem.innerHTML = `
@@ -64,23 +63,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         expenseList.appendChild(newItem);
 
-        let deleteButton = newItem.querySelector(".delete-item");
+        const deleteButton = newItem.querySelector(".delete-item");
         deleteButton.addEventListener("click", function () {
-            let index = expenseItems.findIndex(item => item.element === newItem);
-            if (index !== -1) {
-                expenseItems.splice(index, 1);
-            }
+            const index = expenseItems.findIndex(item => item.element === newItem);
+            if (index !== -1) expenseItems.splice(index, 1);
             newItem.remove();
             updateBudget();
         });
 
-        let inputField = newItem.querySelector(".expense-value");
+        const inputField = newItem.querySelector(".expense-value");
         inputField.addEventListener("input", function () {
-            let index = expenseItems.findIndex(item => item.element === newItem);
+            const value = parseFloat(inputField.value) || 0;
+            const index = expenseItems.findIndex(item => item.element === newItem);
             if (index !== -1) {
-                expenseItems[index].amount = parseFloat(inputField.value) || 0;
+                expenseItems[index].amount = value;
             } else {
-                expenseItems.push({ element: newItem, amount: parseFloat(inputField.value) || 0 });
+                expenseItems.push({ element: newItem, amount: value });
             }
             updateBudget();
         });
@@ -89,24 +87,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("add-income-button").addEventListener("click", addIncomeItem);
     document.getElementById("add-expense-button").addEventListener("click", addExpenseItem);
 
-    console.log(" Income & Expense event listeners attached successfully.");
+    console.log("Income & Expense event listeners attached successfully.");
     addIncomeItem();
     addExpenseItem();
-    
 
+    /** ---------------- SSE Real-Time Updates ---------------- **/
 
-
-        // -------------------- SSE Real-Time Updates --------------------
-    // Check if EventSource is supported by the browser
-    if (!!window.EventSource) {
+    if (window.EventSource) {
         const evtSource = new EventSource('/events');
-
         evtSource.onmessage = function (event) {
             console.log("SSE received:", event.data);
-            // Parse the JSON data received from the server
             const message = JSON.parse(event.data);
 
-            // Check for an existing "updates" container; if not, create one.
             let updatesContainer = document.getElementById('updates');
             if (!updatesContainer) {
                 updatesContainer = document.createElement('div');
@@ -116,28 +108,115 @@ document.addEventListener("DOMContentLoaded", function () {
                 updatesContainer.style.margin = '10px';
                 updatesContainer.style.maxHeight = '200px';
                 updatesContainer.style.overflowY = 'auto';
-                // Append this container to the bottom of the body
                 document.body.appendChild(updatesContainer);
             }
 
-            // Create a new message div to display the event
             const newMsg = document.createElement('div');
-            // Use the user's provided name, or fallback to the IP
-            newMsg.innerHTML = `<strong>${message.modifiedBy}</strong> performed <em>${message.action}</em> with data: ${JSON.stringify(message.data)}`;
-            // Optionally, style the message a bit:
+            newMsg.innerHTML =
+                `<strong>${message.modifiedBy}</strong> performed <em>${message.action}</em>
+                 with data: ${JSON.stringify(message.data)}`;
             newMsg.style.padding = '5px';
             newMsg.style.borderBottom = '1px solid #eee';
 
-            // Insert the new message at the top of the container
             updatesContainer.insertBefore(newMsg, updatesContainer.firstChild);
         };
-
-        evtSource.onerror = function (err) {
-            console.error('SSE error:', err);
-        };
+        evtSource.onerror = err => console.error('SSE error:', err);
     } else {
         console.warn('Your browser does not support Server-Sent Events.');
     }
+
+    /** —— Voice Input + Vibration Integration —— **/
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        const recogBtn = document.getElementById('speak-expense-button');
+        recogBtn.style.display = 'block';
+
+        // A key in localStorage so we only ever show the hint once
+        const HINT_KEY = 'speakExpenseHintShown';
+
+        const recognizer = new SpeechRecognition();
+        recognizer.lang = 'en-US';
+        recognizer.interimResults = false;
+        recognizer.maxAlternatives = 1;
+
+        recogBtn.addEventListener('click', () => {
+            // 1) Show usage hint only the very first time
+            if (!localStorage.getItem(HINT_KEY)) {
+                alert(
+                    `Tap “Speak Expense” and say something like “coffee 3.50” — your phone will record you, parse out the amount, and add it as an expense automatically.`
+                );
+                localStorage.setItem(HINT_KEY, 'true');
+            }
+
+            // 2) Then start listening
+            recognizer.start();
+            recogBtn.disabled = true;
+            recogBtn.textContent = 'Listening…';
+        });
+
+        recognizer.addEventListener('result', event => {
+            const transcript = event.results[0][0].transcript.trim();
+            const parts = transcript.split(' ');
+            const rawAmount = parts.pop().replace(/[^0-9.]/g, '');
+            const desc = parts.join(' ');
+            const amount = parseFloat(rawAmount);
+
+            if (desc && !isNaN(amount)) {
+                const expenseList = document.getElementById('expense-list');
+                const newItem = document.createElement('div');
+                newItem.classList.add('budget-item');
+                newItem.innerHTML = `
+                <input type="text" class="expense-name" value="${desc}">
+                <input type="number" class="expense-value" value="${amount.toFixed(2)}">
+                <button class="delete-item"><img src="images/del-icon.png"></button>
+            `;
+                expenseList.appendChild(newItem);
+
+                // Add to expenseItems so updateBudget includes it
+                expenseItems.push({ element: newItem, amount: amount });
+
+                // Delete listener
+                newItem.querySelector('.delete-item').addEventListener('click', () => {
+                    const idx = expenseItems.findIndex(e => e.element === newItem);
+                    if (idx > -1) expenseItems.splice(idx, 1);
+                    newItem.remove();
+                    updateBudget();
+                });
+
+                // Input listener to keep amount in sync
+                newItem.querySelector('.expense-value').addEventListener('input', evt => {
+                    const val = parseFloat(evt.target.value) || 0;
+                    const idx = expenseItems.findIndex(e => e.element === newItem);
+                    if (idx > -1) expenseItems[idx].amount = val;
+                    updateBudget();
+                });
+
+                updateBudget();
+
+                // Simple vibration feedback (Android only)
+                if (navigator.vibrate) navigator.vibrate(200);
+            } else {
+                alert('Sorry, I could not parse that. Try: "coffee 3.50"');
+            }
+        });
+
+        recognizer.addEventListener('end', () => {
+            recogBtn.disabled = false;
+            recogBtn.textContent = '🎤 Speak Expense';
+        });
+
+        recognizer.addEventListener('error', err => {
+            console.error('Speech error', err);
+            recogBtn.disabled = false;
+            recogBtn.textContent = '🎤 Speak Expense';
+            if (err.error === 'not-allowed') {
+                recogBtn.style.display = 'none';
+                alert('Microphone permission denied. Please type your expense instead.');
+            }
+        });
+    } else {
+        console.warn('SpeechRecognition not supported');
+    }
+
 });
-
-
